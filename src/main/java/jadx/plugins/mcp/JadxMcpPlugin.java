@@ -339,14 +339,14 @@ public class JadxMcpPlugin implements JadxPlugin {
 						showPortConfigDialog();
 					}
 				});                // 添加配置端口菜单项
-				JMenuItem configureThresholdItem = new JMenuItem("Configure Port...");
+				JMenuItem configureThresholdItem = new JMenuItem("Configure Threashold...");
 				configureThresholdItem.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						showThresholdConfigDialog();
 					}
 				});                // 添加配置端口菜单项
-				JMenuItem configurePageSizeItem = new JMenuItem("Configure Port...");
+				JMenuItem configurePageSizeItem = new JMenuItem("Configure Page size...");
 				configurePageSizeItem.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -2428,6 +2428,7 @@ public class JadxMcpPlugin implements JadxPlugin {
 			project.setCodeData(codeData);
 
 			mainWindow.getWrapper().reloadCodeData();
+
 
 		} catch (Exception e) {
 			logger.error("Failed to add comment to project", e);
