@@ -493,25 +493,33 @@ public class JadxMcpPlugin implements JadxPlugin {
 	 * @return Plugins菜单对象
 	 */
 	private JMenu findOrCreatePluginsMenu(JMenuBar menuBar) {
-		// 查找现有的"Plugins"或"Plugin"菜单
+		// 查找现有的"Plugins"或"Plugin"菜单（支持中英文）
 		for (int i = 0; i < menuBar.getMenuCount(); i++) {
 			JMenu menu = menuBar.getMenu(i);
-			if (menu != null && ("Plugins".equals(menu.getText()) || "Plugin".equals(menu.getText()))) {
-				return menu;
+			if (menu != null) {
+				String menuText = menu.getText();
+				if ("Plugins".equals(menuText) || "Plugin".equals(menuText)
+						|| "插件".equals(menuText) || "插件(P)".equals(menuText)) {
+					return menu;
+				}
 			}
 		}
 
 		// 如果没有找到Plugins菜单，创建一个新菜单
 		JMenu pluginsMenu = new JMenu("Plugins");
 
-		// 尝试在Help菜单之前插入，否则添加到末尾
+		// 尝试在Help菜单之前插入，否则添加到末尾（支持中英文Help菜单查找）
 		boolean inserted = false;
 		for (int i = 0; i < menuBar.getMenuCount(); i++) {
 			JMenu menu = menuBar.getMenu(i);
-			if (menu != null && "Help".equals(menu.getText())) {
-				menuBar.add(pluginsMenu, i);
-				inserted = true;
-				break;
+			if (menu != null) {
+				String menuText = menu.getText();
+				if ("Help".equals(menuText) || "帮助".equals(menuText)
+						|| "Help(H)".equals(menuText) || "帮助(H)".equals(menuText)) {
+					menuBar.add(pluginsMenu, i);
+					inserted = true;
+					break;
+				}
 			}
 		}
 

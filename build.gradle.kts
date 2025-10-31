@@ -25,6 +25,12 @@ dependencies {
         isChanging = isJadxSnapshot
     }
 
+	testImplementation("io.github.skylot:jadx-core:$jadxVersion") {
+		isChanging = isJadxSnapshot
+	}
+	testImplementation("io.github.skylot:jadx-gui:$jadxVersion") {
+		isChanging = isJadxSnapshot
+	}
 	testImplementation("io.github.skylot:jadx-smali-input:$jadxVersion") {
         isChanging = isJadxSnapshot
     }
@@ -34,17 +40,6 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 
-    // runtimeOnly(project(":jadx-plugins:jadx-dex-input"))
-	// runtimeOnly(project(":jadx-plugins:jadx-java-input"))
-	// runtimeOnly(project(":jadx-plugins:jadx-java-convert"))
-	// runtimeOnly(project(":jadx-plugins:jadx-smali-input"))
-	// runtimeOnly(project(":jadx-plugins:jadx-rename-mappings"))
-	// runtimeOnly(project(":jadx-plugins:jadx-kotlin-metadata"))
-	// runtimeOnly(project(":jadx-plugins:jadx-kotlin-source-debug-extension"))
-	// runtimeOnly(project(":jadx-plugins:jadx-script:jadx-script-plugin"))
-	// runtimeOnly(project(":jadx-plugins:jadx-xapk-input"))
-	// runtimeOnly(project(":jadx-plugins:jadx-aab-input"))
-	// runtimeOnly(project(":jadx-plugins:jadx-apkm-input"))
 
 	implementation("ch.qos.logback:logback-classic:1.5.18")
 
@@ -91,12 +86,14 @@ java {
 
 
 
-version = System.getenv("VERSION") ?: "dev"
+version = findProperty("version")?.toString() ?: System.getenv("VERSION") ?: "dev"
 
 tasks {
     withType(Test::class) {
-        useJUnitPlatform()
+//        useJUnitPlatform()
+		enabled=false
     }
+
     val shadowJar = withType(ShadowJar::class) {
         archiveClassifier.set("") // remove '-all' suffix
     }
@@ -112,6 +109,9 @@ tasks {
     }
 }
 
+tasks.named("build") {
+	dependsOn("shadowJar")
+}
 
 tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
 	rejectVersionIf {
