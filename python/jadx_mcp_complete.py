@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-JADX MCP 服务器 - 完整缓存版本
-参考客户端版本，为所有大内容实现完整缓存和分页系统
+JADX MCP 服务器
 """
 
 # /// script
 # requires-python = ">=3.10"
-# dependencies = [ "fastmcp", "httpx", "logging", "argparse" ]
+# dependencies = [ "fastmcp", "httpx", ]
 # ///
 
 import argparse
@@ -22,7 +21,7 @@ from fastmcp import FastMCP
 from fastmcp.server.middleware.logging import StructuredLoggingMiddleware
 
 # 默认端口
-DEFAULT_JADX_POR = 8651
+DEFAULT_JADX_POR = 8656
 DEFAULT_THRESHOLD = 200
 
 # 配置日志
@@ -857,42 +856,42 @@ async def get_method_instructions(
     return result
 
 
-@mcp.tool()
-async def get_method_code_refs_by_line(
-    class_raw_name: str = None,
-    class_name: str = None,
-    method_original_name: str = None,
-    method_name: str = None,
-    method_signature: str = None,
-    line: int = 0,
-    page_index: int = 1,
-    page_size: int = 1000,
-) -> dict:
-    """获取方法中指定行号的代码引用信息
-
-    获取方法源码中指定行号位置的代码引用信息，包括该行引用的其他类、方法、字段等。
-    适合用于代码依赖分析和调用关系分析。
-
-    Args:
-        参数同 get_method_source
-        line (int): 要分析的行号，从1开始计数，默认为0表示整个方法
-        page_index (int): 页码，从1开始。默认为1
-        page_size (int): 每页大小。默认为1000
-
-    Returns:
-        dict: 包含指定行代码引用信息的字典
-    """
-    params = build_method_params(
-        class_raw_name, class_name, method_original_name, method_name, method_signature
-    )
-    params["line"] = line
-    if page_index:
-        params["page_index"] = page_index
-    if page_size:
-        params["page_size"] = page_size
-    result = await get_from_jadx("get-method-code-refs-by-line", params)
-
-    return result
+# @mcp.tool()
+# async def get_method_code_refs_by_line(
+#     class_raw_name: str = None,
+#     class_name: str = None,
+#     method_original_name: str = None,
+#     method_name: str = None,
+#     method_signature: str = None,
+#     line: int = 0,
+#     page_index: int = 1,
+#     page_size: int = 1000,
+# ) -> dict:
+#     """获取方法中指定行号的代码引用信息
+#
+#     获取方法源码中指定行号位置的代码引用信息，包括该行引用的其他类、方法、字段等。
+#     适合用于代码依赖分析和调用关系分析。
+#
+#     Args:
+#         参数同 get_method_source
+#         line (int): 要分析的行号，从1开始计数，默认为0表示整个方法
+#         page_index (int): 页码，从1开始。默认为1
+#         page_size (int): 每页大小。默认为1000
+#
+#     Returns:
+#         dict: 包含指定行代码引用信息的字典
+#     """
+#     params = build_method_params(
+#         class_raw_name, class_name, method_original_name, method_name, method_signature
+#     )
+#     params["line"] = line
+#     if page_index:
+#         params["page_index"] = page_index
+#     if page_size:
+#         params["page_size"] = page_size
+#     result = await get_from_jadx("get-method-code-refs-by-line", params)
+#
+#     return result
 
 
 # 重命名功能
