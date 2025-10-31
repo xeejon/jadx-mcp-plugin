@@ -1017,6 +1017,7 @@ async def add_class_comment(
 
     为指定的类添加Javadoc或行注释。注释会保存在项目中，并在反编译时显示。
     适合为代码添加说明文档和使用指导。
+    注意：注释使用原生字符串格式，不需要额外添加/*或\n等
 
     Args:
         类参数同 get_class_source
@@ -1047,6 +1048,7 @@ async def add_method_comment(
 
     为指定的方法添加Javadoc或行注释。注释会保存在项目中，并在反编译时显示。
     适合为方法添加功能说明、参数描述、使用示例等。
+    注意：注释使用原生字符串格式，不需要额外添加/*或\n等
 
     Args:
         类参数同 get_class_source
@@ -1090,6 +1092,7 @@ async def add_field_comment(
 
     为指定的字段（成员变量）添加Javadoc或行注释。注释会保存在项目中，并在反编译时显示。
     适合为字段添加用途说明、取值范围、使用示例等。
+    注意：注释使用原生字符串格式，不需要额外添加/*或\n等
 
     Args:
         class_raw_name (str, optional): (最高优先级) - 原始类名，永远不会改变 - 如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在jadx导出的java代码中，类注释中会有类似"/* renamed from: androidx.core.i.d */"
