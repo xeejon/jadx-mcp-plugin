@@ -64,6 +64,11 @@ Enter `/mcp` in Claude Code, you should see something like:
 2. Click file -> save project in jadx
 3. If comment additions are not immediately displayed in jadx, you can manually update by pressing semicolon (;) on any class or method in jadx, which will refresh all modifications
 
+## build
+```bash
+./gradlew.bat build
+```
+
 ## Acknowledgments
 This project is built based on the following excellent open source projects:
 

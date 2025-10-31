@@ -62,6 +62,10 @@ claude --dangerously-skip-permissions
 3. 如果注释的添加在jadx中没有即时显示更改，可以在jadx中对任一类或方法按分号（;）手动更新，会刷新所有修改
 
 
+## 编译
+```bash
+./gradlew.bat build
+```
 
 
 ## 致谢
