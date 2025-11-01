@@ -95,9 +95,9 @@ public class JadxMcpPlugin implements JadxPlugin {
 	@Override
 	public JadxPluginInfo getPluginInfo() {
 		return JadxPluginInfoBuilder.pluginId(PLUGIN_ID)
-				.name("Jadx mcp plugin")
-				.description("Add jadx mcp plugin for AI")
-				.homepage("https://github.com/jadx-decompiler/jadx-example-plugin")
+				.name("JADX MCP Plugin (Enhanced)")
+				.description("Modified version of jadx-ai-mcp by Zinja - Enhanced with pagination and comment features for AI-assisted Android APK analysis. Original: https://github.com/zinja-coder/jadx-ai-mcp")
+				.homepage("https://github.com/xeejon/jadx-mcp-plugin")
 				.requiredJadxVersion("1.5.2, r2472")
 				.build();
 	}

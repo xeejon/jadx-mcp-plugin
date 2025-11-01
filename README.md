@@ -79,6 +79,17 @@ This project is built based on the following excellent open source projects:
 
 Special thanks to Zinja for providing the basic MCP implementation, and the JADX team for providing the powerful decompiler.
 
+## Legal Warning
+### Disclaimer
+
+The tools jadx-mcp-plugin are intended strictly for educational, research, and ethical security assessment purposes. They are provided "as-is" without any warranties, expressed or implied. Users are solely responsible for ensuring that their use of these tools complies with all applicable laws, regulations, and ethical guidelines.
+
+By using jadx-mcp-plugin, you agree to use them only in environments you are authorized to test, such as applications you own or have explicit permission to analyze. Any misuse of these tools for unauthorized reverse engineering, infringement of intellectual property rights, or malicious activity is strictly prohibited.
+
+The developers of jadx-mcp-plugin shall not be held liable for any damage, data loss, legal consequences, or other consequences resulting from the use or misuse of these tools. Users assume full responsibility for their actions and any impact caused by their usage.
+
+Use responsibly. Respect intellectual property. Follow ethical hacking practices.
+
 ## License
 This project is licensed under the Apache License 2.0. See LICENSE file for details.
 
