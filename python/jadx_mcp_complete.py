@@ -308,12 +308,11 @@ async def get_class_source(
 ) -> dict:
     """获取指定类的完整Java源代码，支持精确查找和智能缓存
 
-    获取指定类的完整Java源代码。推荐使用原始类名进行查找，因为原始类名永远不会改变。
-    如果同时提供原始名和普通名，系统会优先使用原始名进行精确匹配。
-
+    获取指定类的完整Java源代码。推荐使用原始混淆类名(class_raw_name)进行查找
+    如果同时提供原始混淆名和普通名(class_name)，系统会优先使用原始名进行精确匹配。
 
     Args:
-        class_raw_name (str, optional): (最高优先级) 原始类名，如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在注释中会有"/* renamed from: androidx.core.i.d */"
+        class_raw_name (str, optional): (最高优先级) 原始类名，如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在注释中会有"/* renamed from: androidx.core.i.d */"，当明确知道原始混淆类名时，不应该再填写普通类名
         class_name (str, optional): (中等优先级)普通类名，如 "com.example.MainActivity"
         page_index (int): 页码，从1开始。默认为1
         page_size (int): 每页大小。默认为1000
@@ -397,20 +396,20 @@ async def get_method_source(
     🔍 **参数优先级说明**：
 
     **类参数优先级**：
-    1. class_raw_name (最高优先级) - 原始类名，永远不会改变
+    1. class_raw_name (最高优先级) - 原始类名
     2. class_name (中等优先级) - 普通类名
 
     **方法参数优先级**：
-    1. method_original_name (最高优先级) - 原始方法名，永远不会改变
+    1. method_original_name (最高优先级) - 原始混淆方法名
     2. method_name (中等优先级) - 普通方法名
     3. method_signature (特殊优先级，可选) - 方法的完整签名，如 "onCreate(Landroid/os/Bundle;)V"
 
     - 对于重载方法，使用 method_signature 进行区分
 
     Args:
-        class_raw_name (str, optional): (最高优先级) - 原始类名，永远不会改变 - 如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在jadx导出的java代码中，类注释中会有类似"/* renamed from: androidx.core.i.d */"
+        class_raw_name (str, optional): (最高优先级) - 原始类名 - 如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在jadx导出的java代码中，类注释中会有类似"/* renamed from: androidx.core.i.d */"，原始类名，当明确知道原始混淆类名时，不应该再填写普通类名
         class_name (str, optional): 普通类名，如 "com.example.MainActivity"
-        method_original_name (str, optional): (最高优先级) - 原始方法名，永远不会改变，如 "y"，一般在jadx导出的java代码中，方法注释中会有类似"/* renamed from: y */"
+        method_original_name (str, optional): (最高优先级) - 原始混淆方法名，如 "y"，一般在jadx导出的java代码中，方法注释中会有类似"/* renamed from: y */"，当明确知道原始混淆方法名时，不应该再填写普通方法名
         method_name (str, optional): 普通方法名，如 "onCreate"
         method_signature (str, optional):(特殊优先级，可选)- 方法完整签名，如 "onCreate(Landroid/os/Bundle;)V",对于重载方法，使用 method_signature 进行区分
         page_index (int): 页码，从1开始。默认为1
@@ -509,9 +508,9 @@ async def search_method(
 
     Args:
         method_name (str): 要搜索的方法名关键词
-        class_raw_name (str, optional): 限定搜索的原始类名
+        class_raw_name (str, optional): 限定搜索的原始类名，当明确知道原始混淆类名时，不应该再填写普通类名
         class_name (str, optional): 限定搜索的普通类名
-        original_name (str, optional): 方法的原始名，例如 y
+        original_name (str, optional): 原始混淆方法名，例如 `y`，当明确知道原始混淆方法名时，不应该再填写普通方法名
         method_signature (str, optional): 方法的方法签名，用于精确搜索
         page_index (int): 页码，从1开始。默认为1
         lines_per_page (int): 每页大小。默认为200
@@ -545,7 +544,7 @@ async def get_methods(class_raw_name: str = None, class_name: str = None) -> dic
     - 适合了解类的完整方法列表
 
     Args:
-        class_raw_name (str, optional): 原始类名，如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在注释中会有"/* renamed from: androidx.core.i.d */"
+        class_raw_name (str, optional): 原始类名，如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在注释中会有"/* renamed from: androidx.core.i.d */"，当明确知道原始混淆类名时，不应该再填写普通类名
         class_name (str, optional): 普通类名，如 "com.example.MainActivity"
 
     Returns:
@@ -573,7 +572,7 @@ async def get_fields(class_raw_name: str = None, class_name: str = None) -> dict
     返回每个字段的基本信息，如字段名、类型、访问修饰符等。
 
     Args:
-                class_raw_name (str, optional): 原始类名，如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在注释中会有"/* renamed from: androidx.core.i.d */"
+        class_raw_name (str, optional): 原始类名，如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在注释中会有"/* renamed from: androidx.core.i.d */"，当明确知道原始混淆类名时，不应该再填写普通类名
         class_name (str, optional): 普通类名，如 "com.example.MainActivity"
 
     Returns:
@@ -962,9 +961,9 @@ async def rename_field(
     重命名指定的字段（成员变量），包括更新所有访问该字段的地方。
 
     Args:
-        class_raw_name (str, optional): (最高优先级) - 原始类名，永远不会改变 - 如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在jadx导出的java代码中，类注释中会有类似"/* renamed from: androidx.core.i.d */"
+        class_raw_name (str, optional): (最高优先级) - 原始混淆类名 - 如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在jadx导出的java代码中，类注释中会有类似"/* renamed from: androidx.core.i.d */"，当明确知道原始混淆类名时，不应该再填写普通类名
         class_name (str, optional): 普通类名，如 "com.example.MainActivity"
-        field_raw_name (str, optional): (最高优先级) - 原始字段名，永远不会改变，如 "y"，一般在jadx导出的java代码中，字段注释中会有类似"/* renamed from: y */"
+        field_raw_name (str, optional): (最高优先级) - 原始混淆字段名，如 "a"，一般在jadx导出的java代码中，字段注释中会有类似"/* renamed from: y */"，当明确知道原始混淆字段名时，不应该再填写普通字段名
         field_name (str, optional): 普通字段名，如 "userId"
         new_name (str): 新的字段名, 如"userId",如为空则重置为原始字段名
 
@@ -1095,9 +1094,8 @@ async def add_field_comment(
     注意：注释使用原生字符串格式，不需要额外添加/*或\n等
 
     Args:
-        class_raw_name (str, optional): (最高优先级) - 原始类名，永远不会改变 - 如 "androidx.core.i.d"、"androidx.core.i.d$a"，一般在jadx导出的java代码中，类注释中会有类似"/* renamed from: androidx.core.i.d */"
-        class_name (str, optional): 普通类名，如 "com.example.MainActivity"
-        field_raw_name (str, optional): (最高优先级) - 原始字段名，永远不会改变，如 "y"，一般在jadx导出的java代码中，字段注释中会有类似"/* renamed from: y */"
+        类参数同 get_class_source
+        field_raw_name (str, optional): (最高优先级) - 原始混淆字段名，如 "a"，一般在jadx导出的java代码中，字段注释中会有类似"/* renamed from: y */"，当明确知道原始混淆字段名时，不应该再填写普通字段名
         field_name (str, optional): 普通字段名，如 "userId"
         comment (str): 要添加的注释内容
         style (str): 注释风格，"JAVADOC" 或 "LINE"(默认)，字段注释如果超过一行可用JAVADOC风格
