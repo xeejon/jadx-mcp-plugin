@@ -1944,7 +1944,7 @@ public class JadxMcpPlugin implements JadxPlugin {
 
 			JavaMethod method = findMethod(ctx);
 
-			String paramIndexStr = getParameter(ctx, "param_index", "paramIndex");
+			String paramIndexStr = getParameter(ctx, "param_index", "paramIndex","parameter_index","parameterIndex");
 			String newName = getRenameParameter(ctx, "newName", "new_name");
 
 			int paramIndex = Integer.parseInt(paramIndexStr);

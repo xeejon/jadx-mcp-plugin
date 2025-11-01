@@ -982,7 +982,7 @@ async def rename_method_parameter(    class_raw_name: str = None,
     method_original_name: str = None,
     method_name: str = None,
     method_signature: str = None,
-    parameter_index: int = 0,
+	param_index: int = 0,
     new_name: str = None,) -> dict:
     """重命名指定方法参数
 
@@ -991,7 +991,7 @@ async def rename_method_parameter(    class_raw_name: str = None,
     Args:
         类参数同 get_class_source
         方法参数同 get_method_source
-        parameter_index (int): 参数索引，从0开始计数，默认为0
+        param_index (int): 参数索引，从0开始计数，默认为0
         new_name (str): 新的方法参数名, 如"userId",如为空则重置为原始方法参数名
 
     Returns:
@@ -1000,8 +1000,8 @@ async def rename_method_parameter(    class_raw_name: str = None,
     params = build_method_params(class_raw_name, class_name, method_original_name, method_name, method_signature)
     if new_name:
         params["newName"] = new_name
-    if parameter_index:
-        params["parameterIndex"] = parameter_index
+    if param_index is not None:
+        params["param_index"] = param_index
 
     return await post_to_jadx("rename-method-parameter", params)
 # 注释功能
