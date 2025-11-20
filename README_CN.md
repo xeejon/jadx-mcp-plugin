@@ -109,6 +109,6 @@ JADX 版权 © 2014-2024 skylot
 如果 jadx-mcp-plugin 让你的逆向工程工作更轻松，欢迎请我喝杯咖啡提提神～
 
 **扫码请喝咖啡 ☕**
-![支付宝收款码](alipay_qr.jpg)
+<img src="alipay_qr.jpg" alt="支付宝收款码" style="width: 200px; height: auto;">
 
 每一份支持都是持续优化的动力！
